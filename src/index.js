@@ -3,22 +3,23 @@ import Template from './libs/template.js'
 
 const app = express()
 
-const template = ({ title }) => `<h1>${title}</h1>`
-
 const tmplString = new Template('<h1>${title}</h1>')
-const tmplFunction = new Template(template)
+const tmplFunction = new Template(({ title }) => `<h1>${title}</h1>`)
 const tmplFile = Template.loadFile('dynamic')
 
 app.get('/', (_, res) => {
-    res.send(tmplString.render({ title: 'Hello world!' }))
-})
-
-app.get('/function', (_, res) => {
-    res.send(tmplFunction.render({ title: 'Hello world!' }))
+    const html = tmplString.render({ title: 'Hello world!' })
+    res.send(html)
 })
 
 app.get('/file', (_, res) => {
-    res.send(tmplFile.render({ title: 'Hello world!' }))
+    const html = tmplFile.render({ title: 'Hello world!' })
+    res.send(html)
+})
+
+app.get('/function', (_, res) => {
+    const html = tmplFunction.render({ title: 'Hello world!' })
+    res.send(html)
 })
 
 app.listen(3000)

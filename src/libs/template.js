@@ -16,6 +16,11 @@ export default class Template {
         this.tmpl = (data) => new Function(args, body)(data)
     }
 
+    /**
+     * 
+     * @param { String } name The name corresponds to the filepath in the tmpl directory
+     * @returns 
+     */
     static loadFile(name) {
         const templateString = readFileSync(import.meta.dirname + '/../../tmpl/' + name + '.html');
         return new Template(templateString);
