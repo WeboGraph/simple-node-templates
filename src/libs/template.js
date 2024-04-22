@@ -19,7 +19,7 @@ export default class Template {
     /**
      * 
      * @param { String } name The name corresponds to the filepath in the tmpl directory
-     * @returns 
+     * @returns { Template }
      */
     static loadFile(name) {
         name = name.endsWith('.html') ? name : name + '.html'
