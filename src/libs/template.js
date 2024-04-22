@@ -11,9 +11,9 @@ export default class Template {
     }
 
     #parseTemplate(templateString) {
-        const args = `{${Object.keys({ title: 'name' }).join(',')}}`
+        const parseArgs = (data) => `{${Object.keys(data).join(',')}}`
         const body = 'return `' + templateString + '`'
-        this.tmpl = (data) => new Function(args, body)(data)
+        this.tmpl = (data) => new Function(parseArgs(data), body)(data)
     }
 
     /**

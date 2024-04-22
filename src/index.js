@@ -22,4 +22,34 @@ app.get('/function', (_, res) => {
     res.send(html)
 })
 
+// more complex example
+const people = [
+    {
+        firstname: 'John',
+        lastname: 'Doe',
+        age: 21,
+    },
+    {
+        firstname: 'Max',
+        lastname: 'Mustermann',
+        age: 30,
+    },
+]
+const page = Template.loadFile('complex')
+const list = Template.loadFile('partials/list')
+const listitem = Template.loadFile('partials/list-item')
+
+app.get('/complex', (_, res) => {
+    const items = []
+
+    for (const p of people) {
+        items.push(listitem.render(p))
+    }
+
+    const content = list.render({ items: items.join('') })
+    const html = page.render({ title: 'Peoples list', content })
+
+    res.send(html)
+})
+
 app.listen(3000)
