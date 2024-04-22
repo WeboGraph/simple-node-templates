@@ -22,7 +22,8 @@ export default class Template {
      * @returns 
      */
     static loadFile(name) {
-        const templateString = readFileSync(import.meta.dirname + '/../../tmpl/' + name + '.html');
+        name = name.endsWith('.html') ? name : name + '.html'
+        const templateString = readFileSync(import.meta.dirname + '/../../tmpl/' + name);
         return new Template(templateString);
     }
 
