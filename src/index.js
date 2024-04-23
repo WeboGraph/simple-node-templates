@@ -35,6 +35,7 @@ const people = [
         age: 30,
     },
 ]
+
 const page = Template.loadFile('complex')
 const list = Template.loadFile('partials/list')
 const listitem = Template.loadFile('partials/list-item')
@@ -48,6 +49,20 @@ app.get('/complex', (_, res) => {
 
     const content = list.render({ items: items.join('') })
     const html = page.render({ title: 'Peoples list', content })
+
+    res.send(html)
+})
+
+app.get('/multi', (_, res) => {
+    const tmpl = Template.loadFile('multi', true)
+    const items = []
+
+    for (const p of people) {
+        items.push(tmpl['list-item'].render(p))
+    }
+
+    const content = tmpl['list'].render({ items: items.join('') })
+    const html = tmpl['page'].render({ title: 'Peoples list', content })
 
     res.send(html)
 })
